@@ -273,9 +273,9 @@ class Game:
 
 
 
-team1 = Team("Pussy Destroyers")
+team1 = Team("Team 1")
 team1.lineUp()
-team2 = Team("Vagina Crushers")
+team2 = Team("Team 2")
 team2.lineUp()
 
 game = Game(team1,team2)
