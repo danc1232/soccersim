@@ -109,9 +109,9 @@ class Goalie(Player):
 
     def goalKick(self):
         kick = self.dex + self.str
-        if kick >= 155:
+        if kick >= 160:
             return 3
-        elif 155 >> kick >= 90:
+        elif 160 >> kick >= 80:
             return 2
         else:
             return 1
@@ -132,7 +132,7 @@ class Game:
             if self.field == 1:
                 gtd = self.team1.goalie[0]
                 self.field = self.field + gtd.goalKick()
-                pCheck = random.randrange(1,11)
+                pCheck = random.randrange(1,11) ##possession check, see passBall(), similar
                 if pCheck <= 7:
                     self.ball = 1
                 else:
@@ -178,6 +178,7 @@ class Game:
                 shotOnGoal = off.shoot()
                 if shotOnGoal == 1:
                     self.score1 += 1
+                    print(self.team1.name,"have scored!")
                     print(self.score1,self.score2)
                 else:
                     self.ball = 2
@@ -235,6 +236,7 @@ class Game:
                 shotOnGoal = off.shoot()
                 if shotOnGoal == 1:
                     self.score2 += 1
+                    print(self.team2.name,"have scored!")
                     print(self.score1,self.score2)
                 else:
                     self.ball = 1
@@ -246,8 +248,33 @@ class Game:
         clock = 90
         while clock >> 0:
             self.action()
-            time.sleep(0.5)
+            time.sleep(random.randint(1,4))
+            if self.ball == 1:
+                if self.field == 1:
+                    ball = "at their own goal."
+                elif self.field == 2:
+                    ball = "at their end of the field."
+                elif self.field == 3:
+                    ball = "at midfield."
+                elif self.field == 4:
+                    ball = "at their opponent's end of the field."
+                else:
+                    ball = "approaching the opponent's goal."
+                print(self.team1.name,"have the ball",ball)
+            if self.ball == 2:
+                if self.field == 5:
+                    ball = "at their own goal."
+                elif self.field == 4:
+                    ball = "at their end of the field."
+                elif self.field == 3:
+                    ball = "at midfield."
+                elif self.field == 2:
+                    ball = "at their opponent's end of the field."
+                else:
+                    ball = "approaching the opponent's goal."
+                print(self.team2.name,"have the ball",ball)
             clock -= 1
+
         print("game over")
         print("Final Score : " + self.team1.name + " : " + str(self.score1) + " -- " + self.team2.name + " : " + str(self.score2))
 
@@ -270,7 +297,6 @@ class Game:
 
         print(dexcheck1,strcheck1,specheck1)
         print(dexcheck2,strcheck2,specheck2)
-
 
 
 team1 = Team("Team 1")
